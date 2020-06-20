@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+group 'ru.zoommax'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.telegram', name: 'telegrambots', version: '4.5'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
+    compile group: 'org.json', name: 'json', version: '20190722'
+    implementation "org.springframework.security:spring-security-crypto:5.3.3.RELEASE"
+}
