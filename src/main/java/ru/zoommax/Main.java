@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.Scanner;
 
 public class Main {
@@ -72,6 +73,22 @@ class Bot extends TelegramLongPollingBot {
         if (userget.equals("/start")|userget.equals("/help")){
             admin("Данный бот поможет тебе создать аккаунт в дампере\n/newakk - команда для начала создания аккаунта", admid);
         }
+        if (userget.equals("/newakk")){
+            SecureRandom secra = new SecureRandom();
+            String uname = crypto.encodeSha(crypto.encodeSha(String.valueOf(secra.nextInt(1000000000) + 1))+crypto.encodeSha(String.valueOf(secra.nextInt(1000000000) + (secra.nextInt(100)+1))));
+            String upass = crypto.encrypt(uname, serverpass);
+            File n = new File("dumpBase/"+uname);
+            if (!n.exists()){
+                if (n.mkdir()){
+                    admin("Чтобы скопировать текст - просто тапни по нему\n\n\nТвой логин в Дампере:\n`"+uname+"`\n\nТвой пароль в Дампере:\n`"+upass+"`", admid);
+                }else{
+                    admin("Что-то пошло не так. Попробуй ещё раз", admid);
+                }
+            }else{
+                admin("Такой пользователь уже есть. Попробуй ещё раз /newakk", admid);
+            }
+        }
+        /*
         if (userget.equals("/newakk")) {
             admin("Придумай логин и пароль, напиши их через пробел.\nПример построения команды:\nсоздать ЛОГИН ПАРОЛЬ", admid);
         }
@@ -95,7 +112,7 @@ class Bot extends TelegramLongPollingBot {
                     admin("Такой пользователь уже есть. Попробуй с другой парой \"логин пароль\"", admid);
                 }
             }
-        }
+        }*/
         }
 
 
